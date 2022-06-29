@@ -11,6 +11,7 @@ enum {
 onready var stats = $Stats
 onready var detectPlayer = $DetectPlayer
 onready var sprite = $Sprite
+onready var hurtbox = $Hurtbox
 
 export var ACCELERATION = 300
 export var FRICTION = 200
@@ -54,3 +55,4 @@ func _on_Stats_death():
 func _on_Hurtbox_area_entered(hitbox):
 	stats.health -= hitbox.damage
 	knockback = hitbox.knockback * 120
+	hurtbox.create_hit_effect()

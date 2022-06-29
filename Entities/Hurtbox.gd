@@ -2,11 +2,30 @@ extends Area2D
 
 const HitEffect = preload("res://Effects/HitEffect.tscn")
 
-export var show_hit = true
+onready var timer = $Timer
 
-func _on_Hurtbox_area_entered(area):
-	if show_hit:
-		var e = HitEffect.instance()
-		e.global_position = global_position
-		var main = get_tree().current_scene
-		main.add_child(e)
+var invincible = false
+
+signal invincibility_start
+signal invincibility_end
+
+func start_invincible(duration):
+	self.invincible = true
+	timer.start(duration)
+	emit_signal("invincibility_start")
+
+func create_hit_effect():
+	var e = HitEffect.instance()
+	e.global_position = global_position
+	var main = get_tree().current_scene
+	main.add_child(e)
+
+func _on_Timer_timeout():
+	self.invincible = false
+	emit_signal("invincibility_end")
+
+func _on_Hurtbox_invincibility_start():
+	set_deferred("monitoring", false)
+
+func _on_Hurtbox_invincibility_end():
+	monitoring = true

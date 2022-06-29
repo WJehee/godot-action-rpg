@@ -10,16 +10,20 @@ export var MAX_SPEED = 80
 export var ROLL_SPEED = 120
 export var ACCELERATION = 500
 export var FRICTION = 500
+export var IFRAMES = 0.5
 
 var velocity = Vector2.ZERO
 var state = State.MOVE
+var stats = PlayerStats
 
 onready var animation = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 onready var swordhitbox = $Pivot/SwordHitBox
+onready var hurtbox = $Hurtbox
 
 func _ready():
+	stats.connect("death", self, "queue_free")
 	animation_tree.active = true
 
 func _physics_process(delta):
@@ -72,3 +76,8 @@ func move_state(delta):
 
 func move():
 	velocity = move_and_slide(velocity)
+
+func _on_Hurtbox_area_entered(area):
+	stats.health -= 1
+	hurtbox.start_invincible(IFRAMES)
+	hurtbox.create_hit_effect()
