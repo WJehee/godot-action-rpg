@@ -609,5 +609,14 @@ position = Vector2( 139, 100 )
 [node name="Bat" parent="." instance=ExtResource( 7 )]
 position = Vector2( 138, 86 )
 
+[node name="Bat2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 73, 105 )
+
+[node name="Bat3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 266, 105 )
+
+[node name="Bat4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 51, 58 )
+
 [editable path="YSort/Player"]
 [editable path="YSort/Player/Pivot/SwordHitBox"]
