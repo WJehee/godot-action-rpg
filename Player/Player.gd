@@ -6,6 +6,8 @@ enum State {
 	ATTACK
 }
 
+const HurtSound = preload("res://Music and Sounds/PlayerHurtSound.tscn")
+
 export var MAX_SPEED = 80
 export var ROLL_SPEED = 120
 export var ACCELERATION = 500
@@ -21,6 +23,7 @@ onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 onready var swordhitbox = $Pivot/SwordHitBox
 onready var hurtbox = $Hurtbox
+onready var blink = $Blink
 
 func _ready():
 	stats.connect("death", self, "queue_free")
@@ -78,6 +81,14 @@ func move():
 	velocity = move_and_slide(velocity)
 
 func _on_Hurtbox_area_entered(area):
-	stats.health -= 1
+	stats.health -= area.damage
 	hurtbox.start_invincible(IFRAMES)
 	hurtbox.create_hit_effect()
+	var sound = HurtSound.instance()
+	get_tree().current_scene.add_child(sound)
+
+func _on_Hurtbox_invincibility_start():
+	blink.play("Start")
+
+func _on_Hurtbox_invincibility_end():
+	blink.play("Stop")

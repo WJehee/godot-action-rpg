@@ -9,7 +9,6 @@ onready var full = $HeartUIFull
 func set_health(v):
 	health = clamp(v, 0, max_health)
 	if full != null:
-		print(health)
 		full.rect_size.x = health * 15
 	
 func set_max_health(v):
