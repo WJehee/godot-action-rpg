@@ -817,7 +817,7 @@ material = SubResource( 50 )
 position = Vector2( 0, -8 )
 texture = ExtResource( 2 )
 hframes = 60
-frame = 36
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708

@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://World/Tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Camera.tscn" type="PackedScene" id=10]
+[ext_resource path="res://MoveAble.tscn" type="PackedScene" id=11]
+[ext_resource path="res://World/move.gd" type="Script" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -564,6 +566,18 @@ remote_path = NodePath("../../../Camera2D")
 
 [node name="Bush" parent="YSort/Bushes" instance=ExtResource( 1 )]
 position = Vector2( 212, 68 )
+script = ExtResource( 12 )
+
+[node name="MoveAble" parent="YSort/Bushes/Bush" instance=ExtResource( 11 )]
+
+[node name="From" parent="YSort/Bushes/Bush/MoveAble" index="0"]
+position = Vector2( 211, 66 )
+
+[node name="To" parent="YSort/Bushes/Bush/MoveAble" index="1"]
+position = Vector2( 104, -31 )
+
+[node name="Button" parent="YSort/Bushes/Bush/MoveAble/Node/YSort" index="0"]
+position = Vector2( 172, 25 )
 
 [node name="Bush2" parent="YSort/Bushes" instance=ExtResource( 1 )]
 position = Vector2( 181, 120 )
@@ -643,4 +657,7 @@ position = Vector2( 524, 280 )
 [node name="TL" parent="Camera2D/Limits" index="1"]
 position = Vector2( -203, -100 )
 
+[connection signal="move_to" from="YSort/Bushes/Bush/MoveAble" to="YSort/Bushes/Bush" method="_on_MoveAble_move_to"]
+
+[editable path="YSort/Bushes/Bush/MoveAble"]
 [editable path="Camera2D"]

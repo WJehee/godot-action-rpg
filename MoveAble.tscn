@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://MoveAble.gd" type="Script" id=1]
+[ext_resource path="res://Button.tscn" type="PackedScene" id=2]
+
+[node name="MoveAble" type="Node"]
+script = ExtResource( 1 )
+
+[node name="From" type="Position2D" parent="."]
+
+[node name="To" type="Position2D" parent="."]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="YSort" type="YSort" parent="Node"]
+
+[node name="Button" parent="Node/YSort" instance=ExtResource( 2 )]
+
+[connection signal="pressed" from="Node/YSort/Button" to="." method="_on_Button_pressed"]
